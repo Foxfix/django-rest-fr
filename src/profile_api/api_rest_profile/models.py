@@ -1,35 +1,49 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.models import BaseUserManager
+
 
 class UserProfileManager(BaseUserManager):
-	"""
-	Helps django work with our custom user model.
-	"""
-	def crate_user(self, email, name, password=None):
-		"""
-		Creates a new user profile object
-		"""
-		if not email:
-			raise ValueError("User must have an email address.")
-		email = self.normalize_email(email)
-		user = self.model(email=email)
+    """Class required by Django for managing our users from the management
+    command.
+    """
 
-		user.set_password(password)
-		user.save(using=self._db)
+    def create_user(self, email, name, password=None):
+        """Creates a new user with the given detials."""
 
-		return user
+        # Check that the user provided an email.
+        if not email:
+            raise ValueError('Users must have an email address.')
 
-	def create_superuser(self, email, name, password=None):
-		"""
-		Create and save a new superuser with given details.
-		"""
-		user = self.create_user(email, name, password)
-		user.is_superuser = True
-		user.is_staff = True
-		user.save(using=self._db)
-		return user
+        # Create a new user object.
+        user = self.model(
+            email=self.normalize_email(email),
+            name=name,
+        )
+
+        # Set the users password. We use this to create a password
+        # hash instead of storing it in clear text.
+        user.set_password(password)
+        user.save(using=self._db)
+
+        return user
+
+    def create_superuser(self, email, name, password):
+        """Creates and saves a new superuser with given detials."""
+
+        # Create a new user with the function we created above.
+        user = self.create_user(
+            email,
+            name,
+            password
+        )
+
+        # Make this user an admin.
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+
+        return user
 
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
@@ -39,12 +53,12 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(max_length=255, unique=True)
 	name = models.CharField(max_length=255)
 	is_active = models.BooleanField(default=True)
-	is_stuff = models.BooleanField(default=False)
+	is_staff = models.BooleanField(default=False)
 
 	objects = UserProfileManager()
 
 	USERNAME_FIELD = 'email'
-	REQUIRED_FIELD = ['name']
+	REQUIRED_FIELDS = ['name']
 
 	def get_full_name(self):
 		"""
