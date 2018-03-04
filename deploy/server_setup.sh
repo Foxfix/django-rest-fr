@@ -39,6 +39,6 @@ supervisorctl restart profile_api
 cp $PROJECT_BASE_PATH/django-rest-fr/deploy/nginx_profile_api.conf /etc/nginx/sites-available/profile_api.conf
 #rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/profile_api.conf /etc/nginx/sites-enabled/profile_api.conf
-sudo service nginx restart
+systemctl restart nginx.service
 
 echo "DONE! :)"
