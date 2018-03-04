@@ -37,8 +37,8 @@ supervisorctl restart profile_api
 
 # Setup nginx to make our application accessible.
 cp $PROJECT_BASE_PATH/django-rest-fr/deploy/nginx_profile_api.conf /etc/nginx/sites-available/profile_api.conf
-rm /etc/nginx/sites-enabled/default
+#rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/profile_api.conf /etc/nginx/sites-enabled/profile_api.conf
-systemctl restart nginx.service
+sudo service nginx restart
 
 echo "DONE! :)"
