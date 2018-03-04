@@ -15,6 +15,8 @@ Allow: GET, POST, HEAD, OPTIONS
 
 You can change/DELETE only your own data by adding your id
 
+     http://ec2-52-53-163-153.us-west-1.compute.amazonaws.com/api/profile/<id>
+
 *************************************
 
     http://ec2-52-53-163-153.us-west-1.compute.amazonaws.com/api/login/
