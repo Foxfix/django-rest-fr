@@ -21,9 +21,9 @@ mkdir -p $PROJECT_BASE_PATH
 git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH/django-rest-fr
 
 mkdir -p $VIRTUALENV_BASE_PATH
-virtualenv  $VIRTUALENV_BASE_PATH/profile_api
+virtualenv  $VIRTUALENV_BASE_PATH/api_rest_profile
 
-source $VIRTUALENV_BASE_PATH/profile_api/bin/activate
+source $VIRTUALENV_BASE_PATH/api_rest_profile/bin/activate
 pip install -r $PROJECT_BASE_PATH/django-rest-fr/requirements.txt
 
 # Run migrations
@@ -39,6 +39,6 @@ supervisorctl restart profile_api
 cp $PROJECT_BASE_PATH/django-rest-fr/deploy/nginx_profile_api.conf /etc/nginx/sites-available/profile_api.conf
 #rm /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/profile_api.conf /etc/nginx/sites-enabled/profile_api.conf
-systemctl restart nginx.service
+sudo systemctl reload nginx
 
 echo "DONE! :)"
