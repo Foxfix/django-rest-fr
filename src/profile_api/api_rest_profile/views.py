@@ -65,7 +65,7 @@ class HelloViewSet(viewsets.ViewSet):
 	def create(self, request):
 		serializer = serializers.HelloSerializer(data=request.data)
 		if serializer.is_valid():
-			name = serializer.data.get('name')
+			name = serializer.data.get('name').encode('utf-8')
 			message = 'Hello {0}'.format(name)
 			return Response({'message': message})
 		else:
