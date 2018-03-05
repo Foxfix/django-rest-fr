@@ -25,6 +25,8 @@ Allow to login with given auth token
 
 Allow: POST, OPTIONS
 
+ ![api](http://ipic.su/7yyCdV.png)  
+
 Can be tested with Modify Headers in Chrome
 
 just add your token into header
