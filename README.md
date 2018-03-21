@@ -25,7 +25,7 @@ Allow to login with given auth token
 
 Allow: POST, OPTIONS
 
- ![api](http://ipic.su/7yyCdV.png)  
+![Image alt](https://github.com/Foxfix/django-rest-fr/blob/master/login.png)
 
 Can be tested with Modify Headers in Chrome
 
